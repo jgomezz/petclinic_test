@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Slf4j
-public class PetServiceTest {
+public class    PetServiceTest {
 
     @Autowired
     private PetService petService ;
