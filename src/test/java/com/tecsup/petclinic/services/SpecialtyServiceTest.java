@@ -10,10 +10,8 @@ public class SpecialtyServiceTest {
 	//@Autowired
    //	private OwnerService ownerService;
 
-	/**
-	 * 
-	 */
-	/*
+
+
 	@Test
 	public void testFindOwnerById() {
 
