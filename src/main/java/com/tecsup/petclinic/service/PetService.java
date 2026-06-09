@@ -1,4 +1,4 @@
-package com.tecsup.petclinic.services;
+package com.tecsup.petclinic.service;
 
 import com.tecsup.petclinic.dtos.PetDTO;
 import com.tecsup.petclinic.entities.Pet;
