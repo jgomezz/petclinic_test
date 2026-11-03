@@ -92,6 +92,19 @@ public class OwnerServiceTest {
         verifyNoMoreInteractions(ownerRepository);
     }
 
+    @Test
+    void testDeleteOwner_NotFound() {
+        when(ownerRepository.findById(999)).thenReturn(Optional.empty());
+
+        OwnerNotFoundException exception = assertThrows(OwnerNotFoundException.class,
+                () -> ownerService.delete(999));
+
+        assertEquals("Owner not found: 999", exception.getMessage());
+        verify(ownerRepository).findById(999);
+        verify(ownerRepository, never()).delete(any(Owner.class));
+        verifyNoMoreInteractions(ownerRepository);
+    }
+
 	//@Autowired
    //	private OwnerService ownerService;
 
