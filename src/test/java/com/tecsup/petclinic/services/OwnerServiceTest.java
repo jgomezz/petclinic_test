@@ -67,6 +67,19 @@ public class OwnerServiceTest {
         verifyNoMoreInteractions(ownerRepository);
     }
 
+    @Test
+    void testDeleteOwner() throws OwnerNotFoundException {
+        Owner existing = new Owner(11, "Kiara", "Alburqueque", "Av. Lima 123", "Lima", "987654321");
+        when(ownerRepository.findById(11)).thenReturn(Optional.of(existing));
+
+        ownerService.delete(11);
+
+        org.mockito.InOrder order = inOrder(ownerRepository);
+        order.verify(ownerRepository).findById(11);
+        order.verify(ownerRepository).delete(existing);
+        order.verifyNoMoreInteractions();
+    }
+
 	//@Autowired
    //	private OwnerService ownerService;
 
