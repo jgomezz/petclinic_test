@@ -1,11 +1,46 @@
 package com.tecsup.petclinic.services;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.tecsup.petclinic.entities.Owner;
+import com.tecsup.petclinic.exceptions.OwnerNotFoundException;
+import com.tecsup.petclinic.repositories.OwnerRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@Slf4j
+@ExtendWith(MockitoExtension.class)
 public class OwnerServiceTest {
+
+    @Mock
+    private OwnerRepository ownerRepository;
+
+    @InjectMocks
+    private OwnerServiceImpl ownerService;
+
+    @Test
+    void testCreateOwner() {
+        // Arrange: el repositorio asigna un ID a un dueño nuevo.
+        Owner input = new Owner(null, "Kiara", "Alburqueque", "Av. Lima 123", "Lima", "987654321");
+        Owner saved = new Owner(11, "Kiara", "Alburqueque", "Av. Lima 123", "Lima", "987654321");
+        when(ownerRepository.save(input)).thenReturn(saved);
+
+        Owner actual = ownerService.create(input);
+
+        assertNotNull(actual);
+        assertNotNull(actual.getId());
+        assertEquals(11, actual.getId());
+        assertEquals("Kiara", actual.getFirstName());
+        assertEquals("Alburqueque", actual.getLastName());
+        assertEquals("Av. Lima 123", actual.getAddress());
+        assertEquals("Lima", actual.getCity());
+        assertEquals("987654321", actual.getTelephone());
+        verify(ownerRepository).save(input);
+        verifyNoMoreInteractions(ownerRepository);
+    }
 
 	//@Autowired
    //	private OwnerService ownerService;
