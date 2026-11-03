@@ -42,6 +42,31 @@ public class OwnerServiceTest {
         verifyNoMoreInteractions(ownerRepository);
     }
 
+    @Test
+    void testUpdateOwner() {
+        // Un dueño existente cambia sus datos conservando el identificador.
+        Owner input = new Owner(11, "Kiara", "Alburqueque", "Av. Lima 123", "Lima", "987654321");
+        input.setFirstName("Ana");
+        input.setLastName("Gomez");
+        input.setAddress("Calle Sol 456");
+        input.setCity("Arequipa");
+        input.setTelephone("912345678");
+        Owner saved = new Owner(11, "Ana", "Gomez", "Calle Sol 456", "Arequipa", "912345678");
+        when(ownerRepository.save(input)).thenReturn(saved);
+
+        Owner actual = ownerService.update(input);
+
+        assertNotNull(actual);
+        assertEquals(11, actual.getId());
+        assertEquals("Ana", actual.getFirstName());
+        assertEquals("Gomez", actual.getLastName());
+        assertEquals("Calle Sol 456", actual.getAddress());
+        assertEquals("Arequipa", actual.getCity());
+        assertEquals("912345678", actual.getTelephone());
+        verify(ownerRepository).save(input);
+        verifyNoMoreInteractions(ownerRepository);
+    }
+
 	//@Autowired
    //	private OwnerService ownerService;
 
