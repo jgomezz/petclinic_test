@@ -80,6 +80,18 @@ public class OwnerServiceTest {
         order.verifyNoMoreInteractions();
     }
 
+    @Test
+    void testFindOwnerById_NotFound() {
+        when(ownerRepository.findById(999)).thenReturn(Optional.empty());
+
+        OwnerNotFoundException exception = assertThrows(OwnerNotFoundException.class,
+                () -> ownerService.findById(999));
+
+        assertEquals("Owner not found: 999", exception.getMessage());
+        verify(ownerRepository).findById(999);
+        verifyNoMoreInteractions(ownerRepository);
+    }
+
 	//@Autowired
    //	private OwnerService ownerService;
 
