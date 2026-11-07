@@ -1,0 +1,33 @@
+package com.tecsup.petclinic.services;
+
+import com.tecsup.petclinic.dtos.VisitDTO;
+import com.tecsup.petclinic.exceptions.VisitNotFoundException;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+public interface VisitService {
+
+    VisitDTO create(VisitDTO visitDTO);
+
+    VisitDTO update(VisitDTO visitDTO);
+
+    void delete(Integer id) throws VisitNotFoundException;
+
+    VisitDTO findById(Integer id) throws VisitNotFoundException;
+
+    List<VisitDTO> findByPetId(Integer petId);
+
+    List<VisitDTO> findByVetId(Integer vetId);
+
+    List<VisitDTO> findByDateBetween(LocalDate start, LocalDate end);
+
+    List<VisitDTO> findByVetIdAndDateBetween(Integer vetId, LocalDate start, LocalDate end);
+
+    long countVisitsByPet(Integer petId);
+
+    BigDecimal calculateTotalCostByPet(Integer petId);
+
+    List<VisitDTO> findAll();
+}
